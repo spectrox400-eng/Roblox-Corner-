@@ -108,8 +108,8 @@ footer a{display:block;font-size:.9rem;color:#ccc;margin:7px 0}footer a:hover{co
 #msg{color:#6fd68c;font-size:.84rem;min-height:1.3em;margin-bottom:8px}
 .gw{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin-bottom:28px}
 @media(max-width:820px){.gw{grid-template-columns:1fr}}
-#sb{background:none;border:0;color:var(--mut);font:500 .85rem Inter;cursor:pointer;padding:6px 0;text-align:left}#sb:hover{color:#fff}
-#sr{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.85);display:none;overflow:auto;padding:30px 14px}#sr.open{display:block}
+#sb,#li{background:none;border:0;color:var(--mut);font:500 .85rem Inter;cursor:pointer;padding:6px 0;text-align:left}#sb:hover,#li:hover{color:#fff}
+#sr,#au{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.85);display:none;overflow:auto;padding:30px 14px}#sr.open,#au.open{display:block}
 #sRes .lnk{display:block;margin:6px 0;font-weight:500}
 .hero::before{content:"";position:absolute;right:-140px;top:-70px;width:560px;height:560px;border:2px solid rgba(22,112,232,.28);border-radius:50%;pointer-events:none}
 .qa{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:24px}
@@ -128,7 +128,7 @@ footer a{display:block;font-size:.9rem;color:#ccc;margin:7px 0}footer a:hover{co
 <a href="#home" class="brand"><i></i><span>ROBLOX <b>CORNER</b></span></a>
 <button id="bg" aria-expanded="false" aria-controls="nv">Menu</button>
 <nav id="nv" aria-label="Main">
-<a href="#home" data-n="home">Home</a><a href="#games" data-n="games">Games</a><a href="#news" data-n="news">News</a><a href="#giveaways" data-n="giveaways">Giveaways</a><a href="#jackpot" data-n="jackpot">Jackpot Spin</a><a href="#marketplace" data-n="marketplace">Marketplace</a><a href="#events" data-n="events">Events</a><a href="#about" data-n="about">About</a><button id="sb" aria-label="Search the site">Search</button>
+<a href="#home" data-n="home">Home</a><a href="#games" data-n="games">Games</a><a href="#news" data-n="news">News</a><a href="#giveaways" data-n="giveaways">Giveaways</a><a href="#jackpot" data-n="jackpot">Jackpot Spin</a><a href="#marketplace" data-n="marketplace">Marketplace</a><a href="#events" data-n="events">Events</a><a href="#about" data-n="about">About</a><button id="sb" aria-label="Search the site">Search</button><button id="li">Sign in</button>
 <a class="btn dc" href="#" target="_blank" rel="noopener">Join Discord</a>
 </nav></div></header>
 <div id="ann" hidden></div>
@@ -186,7 +186,7 @@ footer a{display:block;font-size:.9rem;color:#ccc;margin:7px 0}footer a:hover{co
 <div class="ph1"><div class="eb">Jackpot Spin marketplace</div><h1>Jackpot Spin — Sell your stuff to us</h1><p>Submit an eligible Roblox item or service for evaluation.</p></div>
 <p class="note">All submissions are subject to staff approval. The 50 RBX = 1 Spin rate is a reference, not a guaranteed offer. We never ask for your Roblox password and no transaction happens automatically.</p>
 <div class="box"><h3>Submit for evaluation</h3>
-<div class="emp" id="sOff" hidden style="margin-bottom:0">Submissions need a signed-in session with access to this page. Please open the page while signed in, or contact staff on Discord.</div>
+<div class="emp" id="sOff" hidden style="margin-bottom:0">Please sign in (top menu) to submit offers and track their status.</div>
 <div class="fm" id="sF">
 <div class="fr"><label>Roblox username<input id="s_rb" maxlength="40" autocomplete="off"></label><label>Discord username<input id="s_dc" maxlength="40" autocomplete="off"></label></div>
 <label>Item or service name<input id="s_nm" maxlength="80"></label>
@@ -222,6 +222,7 @@ footer a{display:block;font-size:.9rem;color:#ccc;margin:7px 0}footer a:hover{co
 <div><h4>Connect</h4><a class="dc" href="#" target="_blank" rel="noopener">Discord</a><span id="fs"></span></div>
 </div><div class="cp">© 2026 Roblox Corner. An independent fan community, not affiliated with, endorsed or sponsored by Roblox Corporation. Roblox is a trademark of Roblox Corporation.</div></div></footer>
 
+<div id="au" role="dialog" aria-modal="true" aria-label="Account"><div class="mo"><div class="bd" id="aub"></div><div class="bd" style="padding-top:0"><button class="btn s o" id="ax">Close</button></div></div></div>
 <div class="bt" role="navigation" aria-label="Quick links"><a href="#home" data-n="home">Home</a><a href="#games" data-n="games">Games</a><a href="#giveaways" data-n="giveaways">Giveaways</a><a href="#marketplace" data-n="marketplace">Sell</a><button id="bm">Menu</button></div>
 <div id="sr" role="dialog" aria-modal="true" aria-label="Search"><div class="mo"><div class="bd"><label>Search news, games, giveaways and events<input id="sq" type="search" autocomplete="off"></label><div id="sRes" style="margin-top:14px"></div><div><button class="btn s o" id="sx">Close</button></div></div></div></div>
 <div id="ov" role="dialog" aria-modal="true" aria-label="Article"><div class="mo" id="mo"></div></div>
@@ -231,6 +232,8 @@ footer a{display:block;font-size:.9rem;color:#ccc;margin:7px 0}footer a:hover{co
 <div class="tabs" id="aT" style="margin-top:14px"></div><div id="msg" role="status"></div><div id="aB"></div>
 </div></div>
 
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 const DC="https://discord.gg/6j4HnjpGZ";
 const $=s=>document.querySelector(s);
@@ -254,7 +257,7 @@ const D={games:[],news:[],giveaways:[],events:[],staff:[],site:{}},OK={},M={mine
 let db=null,user=null,assets=null,off=false,F={n:"All",g:"all",e:"All",gm:"All",q:""};
 const fmt=d=>{if(!d)return"Date to be announced";const t=new Date(d+"T00:00:00");return isNaN(t)?d:t.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})};
 const today=()=>new Date().toISOString().slice(0,10);
-const emp=(k,m)=>`<div class="emp">${off?"Live content needs a signed-in session with access to this page. Join our Discord for updates.":OK[k]===true?m:OK[k]==="err"?"Content could not be loaded. Please refresh the page.":"Loading…"}</div>`;
+const emp=(k,m)=>`<div class="emp">${off?"Live content is not connected yet. Join our Discord for updates.":OK[k]===true?m:OK[k]==="err"?"Content could not be loaded. Please refresh the page.":"Loading…"}</div>`;
 const cv=(u,a)=>u?`<img class="cv" src="${esc(u)}" alt="${esc(a)}" loading="lazy">`:`<div class="cv ph" aria-hidden="true">ROBLOX CORNER</div>`;
 const lines=t=>String(t||"").split("\n").map(x=>x.trim()).filter(Boolean);
 const gl=c=>(GC.find(x=>x[0]===c)||[0,c])[1];
@@ -409,6 +412,43 @@ if((st==="Approved"||st==="Completed")&&sp===""){say("Set the final spin reward 
 try{const old=M.decAll[b.dataset.u]||{};await db.collection("decisions").doc(b.dataset.u).set({...old,[b.dataset.i]:{status:st,spins:sp===""?null:Math.floor(+sp),note:g("nt").trim(),ts:Date.now()}});say("Decision saved.")}catch(e){say("Failed: "+(e.message||e.code))}})}
 $("#abtn").onclick=()=>{$("#adm").classList.add("open");renderAdmin()};
 $("#aclose").onclick=()=>$("#adm").classList.remove("open");
+
+/* Supabase data layer: provides the small db / user / assets API the page uses */
+const RC=window.RC_CONFIG||{};
+const sb=(/^https:\/\/[\w-]+\.supabase\.co/.test(RC.url||"")&&RC.key&&window.supabase)?supabase.createClient(RC.url,RC.key):null;
+const bus=new EventTarget(),ping=()=>bus.dispatchEvent(new Event("w"));
+const dref=(c,id)=>{
+const row=async()=>{const {data,error}=await sb.from("docs").select("data").eq("coll",c).eq("id",id).maybeSingle();if(error)throw error;return data};
+const put=async d=>{const {error}=await sb.from("docs").upsert({coll:c,id,data:d,updated_at:new Date().toISOString()});if(error)throw error;ping()};
+return{async get(){const x=await row();return{exists:!!x,data:()=>x&&x.data}},set:put,
+async update(d){const x=await row();await put({...(x?x.data:{}),...d})},
+async delete(){const {error}=await sb.from("docs").delete().eq("coll",c).eq("id",id);if(error)throw error;ping()},
+onSnapshot(ok,er){const run=async()=>{try{const x=await row();ok({exists:!!x,data:()=>x&&x.data})}catch(e){er&&er(e)}};run();setInterval(run,30000);bus.addEventListener("w",run)}}};
+const cref=c=>({onSnapshot(ok,er){const run=async()=>{const {data,error}=await sb.from("docs").select("id,data").eq("coll",c);if(error){er&&er(error);return}ok({docs:data.map(x=>({id:x.id,data:()=>x.data}))})};run();setInterval(run,30000);bus.addEventListener("w",run)},doc:id=>dref(c,id)});
+let _ctx=null;
+const ctx=()=>_ctx||(_ctx=(async()=>{
+const {data:{session}}=await sb.auth.getSession();const u=session&&session.user;let adm=false;
+if(u){const {data}=await sb.from("admins").select("user_id").eq("user_id",u.id).maybeSingle();adm=!!data}
+return{u,adm,db:{collection:cref},
+user:u?{canEdit:()=>adm,id:async()=>u.id}:null,
+assets:u?{upload:async f=>{const p=`${u.id}/${Date.now()}-${f.name.replace(/[^\w.-]/g,"_")}`;const {error}=await sb.storage.from("uploads").upload(p,f,{contentType:f.type});if(error)throw error;return{url:sb.storage.from("uploads").getPublicUrl(p).data.publicUrl}}}:null}})());
+if(sb){window.claude={use:async k=>{const c=await ctx();return c[k]}};ctx().then(c=>{$("#li").textContent=c.u?"Account":"Sign in"})}
+async function authUI(){const b=$("#aub");
+if(!sb){b.innerHTML="<h3>Accounts</h3><p class='meta'>Accounts are not connected yet.</p>";return}
+const c=await ctx();
+if(c.u){b.innerHTML=`<h3 style="font-size:1.6rem">Account</h3><p style="color:#ccc">Signed in as <b>${esc(c.u.email)}</b>${c.adm?" (administrator)":""}</p><button class="btn s" id="so">Sign out</button>`;$("#so").onclick=async()=>{await sb.auth.signOut();location.reload()};return}
+b.innerHTML=`<h3 style="font-size:1.6rem">Sign in</h3><div class="fm" style="margin-top:12px"><label>Email<input id="ae" type="email" autocomplete="email"></label><label>Password (6+ characters)<input id="ap" type="password" autocomplete="current-password"></label><div class="acts"><button class="btn s" id="ai">Sign in</button><button class="btn s o" id="ac">Create account</button></div><div class="meta" id="am" role="status"></div></div>`;
+const go=async m=>{const e=$("#ae").value.trim(),p=$("#ap").value,am=$("#am");
+if(!e||p.length<6){am.textContent="Enter your email and a password of at least 6 characters.";return}
+am.textContent="Please wait…";
+const x=m==="in"?await sb.auth.signInWithPassword({email:e,password:p}):await sb.auth.signUp({email:e,password:p,options:{emailRedirectTo:location.href.split("#")[0]}});
+if(x.error){am.textContent=x.error.message;return}
+if(!x.data.session){am.textContent="Account created. Check your email to confirm it, then sign in.";return}
+location.reload()};
+$("#ai").onclick=()=>go("in");$("#ac").onclick=()=>go("up")}
+$("#li").onclick=()=>{$("#au").classList.add("open");authUI()};
+$("#ax").onclick=()=>$("#au").classList.remove("open");
+$("#au").onclick=e=>{if(e.target.id==="au")$("#au").classList.remove("open")};
 
 /* Boot */
 (async()=>{
